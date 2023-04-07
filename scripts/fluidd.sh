@@ -73,7 +73,7 @@ function install_fluidd_macros() {
     echo -e "| have Fluidd fully functional and working.             |"
     blank_line
     echo -e "| The recommended macros for Fluidd can be found here:  |"
-    echo -e "| https://github.com/fluidd-core/fluidd-config           |"
+    echo -e "| https://github.com/ritverz/fluidd-config           |"
     blank_line
     echo -e "| If you already use these macros skip this step.       |"
     echo -e "| Otherwise you should consider to answer with 'yes' to |"
@@ -98,7 +98,7 @@ function install_fluidd_macros() {
 function download_fluidd_macros() {
   local ms_cfg_repo path configs regex line gcode_dir
 
-  ms_cfg_repo="https://github.com/fluidd-core/fluidd-config.git"
+  ms_cfg_repo="https://github.com/ritverz/fluidd-config.git"
   regex="${HOME//\//\\/}\/([A-Za-z0-9_]+)\/config\/printer\.cfg"
   configs=$(find "${HOME}" -maxdepth 3 -regextype posix-extended -regex "${regex}" | sort)
 
@@ -343,16 +343,16 @@ function compare_fluidd_versions() {
 function get_fluidd_download_url() {
   local fl_tags tags latest_tag latest_url stable_tag stable_url url
 
-  fl_tags="https://api.github.com/repos/fluidd-core/fluidd/tags"
+  fl_tags="https://api.github.com/repos/ritverz/fluidd/tags"
   tags=$(curl -s "${fl_tags}" | grep "name" | cut -d'"' -f4)
 
   ### latest download url including pre-releases (alpha, beta, rc)
   latest_tag=$(echo "${tags}" | head -1)
-  latest_url="https://github.com/fluidd-core/fluidd/releases/download/${latest_tag}/fluidd.zip"
+  latest_url="https://github.com/ritverz/fluidd/releases/download/${latest_tag}/fluidd.zip"
 
   ### get stable fluidd download url
   stable_tag=$(echo "${tags}" | grep -E "^v([0-9]+\.?){3}$" | head -1)
-  stable_url="https://github.com/fluidd-core/fluidd/releases/download/${stable_tag}/fluidd.zip"
+  stable_url="https://github.com/ritverz/fluidd/releases/download/${stable_tag}/fluidd.zip"
 
   read_kiauh_ini "${FUNCNAME[0]}"
   if [[ ${fluidd_install_unstable} == "true" ]]; then
@@ -441,7 +441,7 @@ function patch_fluidd_update_manager() {
 [update_manager fluidd]
 type: web
 channel: stable
-repo: fluidd-core/fluidd
+repo: ritverz/fluidd
 path: ~/fluidd
 MOONRAKER_CONF
 
@@ -474,7 +474,7 @@ function patch_fluidd_config_update_manager() {
 type: git_repo
 primary_branch: master
 path: ~/fluidd-config
-origin: https://github.com/fluidd-core/fluidd-config.git
+origin: https://github.com/ritverz/fluidd-config.git
 managed_services: klipper
 MOONRAKER_CONF
 
